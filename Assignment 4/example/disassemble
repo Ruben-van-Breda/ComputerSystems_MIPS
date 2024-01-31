@@ -1,0 +1,12 @@
+#!/bin/bash 
+if [  $# -lt 1 ]
+then
+    echo
+    echo 'COMP 30080 Assignment 4 egg disassembler'
+    echo '-----------------------------------------'
+    echo 'Usage: bash disassemble <shellcode-binary>'
+    echo 'Example: bash disassemble example-sc.bin'
+    echo
+    exit 1
+fi
+mipsel-linux-gnu-objdump -z -b binary -mmips:isa32 -EL -D vmlinux $1 

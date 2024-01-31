@@ -1,0 +1,14 @@
+#!/bin/bash 
+if [  $# -lt 1 ]
+then
+    echo
+    echo 'COMP 30080 Assignment 4 Exploit generator'
+    echo '-----------------------------------------'
+    echo 'Usage: bash assemble <shellcode-filename>'
+    echo 'Example: bash assemble example-sc'
+    echo
+    exit 1
+fi
+mipsel-linux-gnu-as -o $1.o $1.s
+mipsel-linux-gnu-objcopy -R .MIPS.abiflags -R .reginfo -R .gnu.attributes -R .pdr -R .bss $1.o $1.cleaned.o
+mipsel-linux-gnu-ld -T linkcmds -M --oformat=binary -o $1.bin $1.cleaned.o
